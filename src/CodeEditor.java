@@ -1,9 +1,6 @@
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.DocumentFilter;
-import java.awt.*;
-import java.awt.event.ComponentAdapter;
 
 public class CodeEditor {
     private JTextPane editorPane1;
@@ -16,6 +13,7 @@ public class CodeEditor {
 
     public CodeEditor() {
         editorPane1.setDocument(new DefaultStyledDocument());
-        ((AbstractDocument) editorPane1.getDocument()).setDocumentFilter(new SyntaxHighlighter(editorPane1));
+        ((AbstractDocument) editorPane1.getDocument()).setDocumentFilter(new PythonSyntaxHighlighter(editorPane1));
+
     }
 }
