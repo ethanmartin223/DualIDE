@@ -29,11 +29,9 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="b1ee2" class="javax.swing.JEditorPane" binding="editorPane1" default-binding="true">
+          <component id="87ae0" class="javax.swing.JTextPane" binding="editorPane1">
             <constraints/>
-            <properties>
-              <minimumSize width="0" height="0"/>
-            </properties>
+            <properties/>
           </component>
         </children>
       </scrollpane>

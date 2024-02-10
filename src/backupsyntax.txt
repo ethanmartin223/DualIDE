@@ -1,0 +1,94 @@
+TOOLBAR_HEIGHT = 40
+TOOLBAR_ITEM_WIDTH = 1
+TOOLBAR_COLOR = '#0e1525'
+TOOLBAR_TEXT_COLOR = '#FFFFFF'
+TOOLBAR_FONT_SIZE = '7'
+TOOLBAR_FONT = tkFont.Font(family='Terminal', size=TOOLBAR_FONT_SIZE)
+TOOLBAR_DROPDOWN_COLOR = '#3f495f'
+
+EDITOR_BG_COLOR = '#1c2333'
+EDITOR_FONT_SIZE = '8'
+EDITOR_FONT = tkFont.Font(family='Terminal', size=EDITOR_FONT_SIZE)
+EDITOR_FONT_COLOR = '#FFFFFF'
+EDITOR_CURSOR_COLOR = '#0079f2'
+EDITOR_SCROLLBAR_COLOR = '#3c445c'
+EDITOR_LINEDISPLAY_WIDTH = 3
+EDITOR_LINEDISPLAY_FG = '#ffffff'
+EDITOR_HIGHLIGHT_COLOR = '#004182'
+EDITOR_SIDE = 'left'
+
+OUTPUT_BG_COLOR = '#1c2333'
+OUTPUT_FONT = tkFont.Font(family='Terminal', size=EDITOR_FONT_SIZE)
+OUTPUT_FONT_COLOR = '#FFFFFF'
+OUTPUT_SCROLLBAR_COLOR = '#3c445c'
+OUTPUT_HIGHLIGHT_COLOR = '#004182'
+OUTPUT_SIDE = 'top'
+
+SYNTAX_KEYWORDS_COLOR = '#0079f2'
+SYNTAX_FUNCTIONS_COLOR = '#c9c236'
+SYNTAX_OPERATIONS_COLOR = '#9fc2e5'
+SYNTAX_CLASS_COLOR = '#ff3154'
+SYNTAX_SELF_COLOR = '#ff004c'
+SYNTAX_DUNDER_METHOD_COLOR = '#4437a6'
+SYNTAX_TYPE_COLOR = '#845692'
+SYNTAX_COMMENT_COLOR = '#0c6324'
+SYNTAX_BOOL_COLOR = '#9fc2e5'
+SYNTAX_STRING_COLOR = '#dea670'
+
+MISC_DIVIDER_THICKNESS = 10
+MISC_TAB_WIDTH = 2
+MISC_FULLSCREEN = True
+MISC_AUTOINDENT = True
+
+UPDATE_LINE_FREQ = 100#ms
+UPDATE_SYNTAX_HIGHLIGHTING_FREQ = 50#ms
+
+HIDDEN_FILES = ['poetry.lock','replit.nix','pyproject.toml']
+
+PYTHON_SYNTAX = {
+  ('int','str','list','set','dict','tuple','bool','float','bytes',
+   'memoryview','bytearray','object'): SYNTAX_TYPE_COLOR,
+  ('and', 'exec', 'not', 'assert', 'finally',
+   'or', 'break', 'for', 'pass', 'from', 'in',
+   'print', 'continue', 'global', 'raise', 'def',
+   'if', 'return', 'del', 'import', 'try', 'is',
+   'match','case','async','while'): SYNTAX_KEYWORDS_COLOR,
+  ("abs","aiter","all","any","anext","ascii",
+   "breakpoint","bin","callable","chr","classmethod",
+   "compile","complex","delattr","dir","divmod","enumerate","eval",
+   "exec","exit","filter","format","frozenset","getattr","globals",
+   "hasattr","hash","help","hex","id","input","isinstance",
+   "issubclass","iter","len","locals","map","max",
+   "min","next","oct","open","ord","pow","print","property",
+   "range","repr","reversed","round","setattr","slice","sorted",
+   "staticmethod","sum","super","type","vars","zip"): SYNTAX_FUNCTIONS_COLOR,
+  ('=','+','-','/','//','%','*','**','>','<','!=','&','^','|'): SYNTAX_OPERATIONS_COLOR,
+  ('#',): SYNTAX_COMMENT_COLOR,
+  ('True','False','None','NotImplemented'): SYNTAX_BOOL_COLOR,
+  ('class',): SYNTAX_CLASS_COLOR,
+  ('self',):SYNTAX_SELF_COLOR,
+  ("__abs__", "__add__", "__and__", "__call__", "__class__", "__cmp__",
+   "__coerce__", "__complex__", "__contains__", "__del__", "__delattr__",
+   "__delete__", "__delitem__", "__delslice__", "__dict__", "__div__",
+   "__divmod__", "__eq__", "__float__", "__floordiv__", "__ge__", "__get__",
+   "__getattr__", "__getattribute__", "__getitem__", "__getslice__", "__gt__",
+   "__hash__", "__hex__", "__iadd__", "__iand__", "__idiv__", "__ifloordiv__",
+   "__ilshift__", "__imod__", "__imul__", "__index__", "__init__",
+   "__instancecheck__", "__int__", "__invert__", "__ior__", "__ipow__",
+   "__irshift__", "__isub__", "__iter__", "__itruediv__", "__ixor__", "__le__",
+   "__len__", "__long__", "__lshift__", "__lt__", "__metaclass__", "__mod__",
+   "__mro__", "__mul__", "__ne__", "__neg__", "__new__", "__nonzero__",
+   "__oct__", "__or__", "__pos__", "__pow__", "__radd__", "__rand__", "__rcmp__",
+   "__rdiv__", "__rdivmod__", "__repr__", "__reversed__", "__rfloordiv__", "__rlshift__",
+   "__rmod__", "__rmul__", "__ror__", "__rpow__", "__rrshift__", "__rshift__", "__rsub__",
+   "__rtruediv__", "__rxor__", "__set__", "__setattr__", "__setitem__",
+   "__setslice__", "__slots__", "__str__", "__sub__", "__subclasscheck__", "__truediv__",
+   "__unicode__", "__weakref__", "__xor__"): SYNTAX_DUNDER_METHOD_COLOR,
+  ('Exception','StopIteration','SystemExit','StandardError','ArithmeticError',
+   'OverflowError','FloatingPointError','ZeroDivisionError','AssertionError',
+   'AttributeError','EOFError','ImportError','KeyboardInterrupt','LookupError',
+   'IndexError','KeyError','NameError','UnboundLocalError','EnvironmentError',
+   'IOError','OSError','SyntaxError','IndentationError','SystemError','SystemExit','TypeError',
+   'ValueError','RuntimeError','NotImplementedError'):'#ffffff',
+  ('"',"'"):SYNTAX_STRING_COLOR
+}
