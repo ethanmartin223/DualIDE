@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="IDEWindow">
+  <grid id="27dc6" binding="mainWindowContainer" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="1122" height="804"/>
+    </constraints>
+    <properties/>
+    <border type="none" title=""/>
+    <children>
+      <grid id="fdf85" binding="mainEditorToolbarContainer" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-1"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="b801a" class="javax.swing.JMenuBar" binding="mainEditorToolbar" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="83d74" class="javax.swing.JMenu" binding="fileMenu" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <text value="File"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="628bb" class="javax.swing.JMenu" binding="editMenu" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <borderPainted value="false"/>
+                  <text value="Edit"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="d13dc" class="javax.swing.JMenu" binding="navigateMenu" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <borderPainted value="false"/>
+                  <contentAreaFilled value="true"/>
+                  <text value="Navigate"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="e7512" class="javax.swing.JMenu" binding="codeMenu" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <borderPainted value="false"/>
+                  <text value="Code"/>
+                </properties>
+                <border type="none" title=""/>
+                <children/>
+              </grid>
+              <grid id="949b0" class="javax.swing.JMenu" binding="runMenu" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <text value="Run"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="dd213" class="javax.swing.JMenu" binding="helpMenu" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <text value="Help"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <splitpane id="382a2" binding="runDragSplitter">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <dividerLocation value="550"/>
+          <lastDividerLocation value="650"/>
+          <orientation value="0"/>
+          <preferredSize width="849" height="500"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="f16b4" binding="mainEditorContainer" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <splitpane position="left"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <splitpane id="3026a" binding="editorDragSplitter">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <tabbedpane id="a0f24" binding="editorTabPanel">
+                    <constraints>
+                      <splitpane position="right"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <grid id="32b99" binding="testFileTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+                        <constraints>
+                          <tabbedpane title="test_file_name_here"/>
+                        </constraints>
+                        <properties/>
+                        <border type="none"/>
+                        <children>
+                          <nested-form id="7178d" form-file="CodeEditor.form" binding="activeCodeEditor">
+                            <constraints border-constraint="Center"/>
+                          </nested-form>
+                        </children>
+                      </grid>
+                    </children>
+                  </tabbedpane>
+                  <grid id="2a78" binding="treeContainer" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints>
+                      <splitpane position="left"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <scrollpane id="be5e6">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <horizontalScrollBarPolicy value="31"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <component id="d1620" class="javax.swing.JTree" binding="fileTree">
+                            <constraints/>
+                            <properties>
+                              <preferredSize width="200" height="104"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </scrollpane>
+                      <component id="4dcee" class="javax.swing.JLabel">
+                        <constraints border-constraint="North"/>
+                        <properties>
+                          <preferredSize width="105" height="20"/>
+                          <text value="Project Directory"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </splitpane>
+            </children>
+          </grid>
+          <grid id="a1f4" binding="mainRunContainer" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <splitpane position="right"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="7483a" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="d767f" class="javax.swing.JTextArea" binding="runOutputText">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                  </component>
+                  <grid id="1749e" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+                    <constraints border-constraint="North"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <hspacer id="1dbbc">
+                        <constraints/>
+                      </hspacer>
+                      <component id="7cde0" class="javax.swing.JLabel">
+                        <constraints/>
+                        <properties>
+                          <text value="Run"/>
+                        </properties>
+                      </component>
+                      <component id="1b256" class="javax.swing.JSeparator">
+                        <constraints/>
+                        <properties>
+                          <orientation value="1"/>
+                        </properties>
+                      </component>
+                      <component id="62907" class="javax.swing.JButton" binding="runButton" default-binding="true">
+                        <constraints/>
+                        <properties>
+                          <text value="run"/>
+                        </properties>
+                      </component>
+                      <component id="cd7e1" class="javax.swing.JButton" default-binding="true">
+                        <constraints/>
+                        <properties>
+                          <text value="stop"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </splitpane>
+      <grid id="9eaa7" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints border-constraint="East"/>
+        <properties>
+          <minimumSize width="50" height="24"/>
+          <preferredSize width="40" height="24"/>
+        </properties>
+        <border type="none"/>
+        <children/>
+      </grid>
+    </children>
+  </grid>
+</form>
