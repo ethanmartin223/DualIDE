@@ -1,3 +1,5 @@
+import jdk.jshell.execution.Util;
+
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.text.DefaultHighlighter.*;
@@ -8,9 +10,7 @@ import java.util.regex.Pattern;
 
 public class PythonSyntaxHighlighter extends DocumentFilter {
 
-    private DefaultHighlightPainter highlightPainter = new DefaultHighlightPainter(Color.YELLOW);
     private JTextPane textPane;
-    private SimpleAttributeSet background;
 
     private String currentWord;
     private int lastWordEndPos;
@@ -74,6 +74,7 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
     String[] SYNTAX_STRINGS = {"\"", "'"};
 
     private Style highlighter;
+    private Style clear;
 
 
     private Color SYNTAX_TYPE_COLOR, SYNTAX_KEYWORDS_COLOR, SYNTAX_FUNCTIONS_COLOR, SYNTAX_OPERATIONS_COLOR,SYNTAX_COMMENT_COLOR,
@@ -82,6 +83,8 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
     public PythonSyntaxHighlighter(JTextPane textPane) {
 
         highlighter = textPane.addStyle("syntaxHighlighter", null);
+        clear = textPane.addStyle("syntaxClear", null);
+        StyleConstants.setForeground(clear, Color.BLACK);
 
         this.textPane = textPane;
         lastWordEndPos = 0;
@@ -145,8 +148,7 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
             int start = matcher.start();
             int end = matcher.end();
             StyleConstants.setForeground(highlighter, highlight);
-            textPane.getStyledDocument().setCharacterAttributes(start, end-start, highlighter, true);
-            //textPane.getHighlighter().addHighlight(start, end, (Highlighter.HighlightPainter) highlighted);
+            textPane.getStyledDocument().setCharacterAttributes(start, (end-start), highlighter, true);
         }
 
     }
@@ -155,6 +157,7 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
         MutableAttributeSet mas = textPane.getInputAttributes();
         mas.removeAttributes(mas);
         textPane.removeStyle("syntaxHighlighter");
+        textPane.getStyledDocument().setCharacterAttributes(0, textPane.getText().length(), clear, true);
         for (String s : SYNTAX_TYPES) highLightWord(s, SYNTAX_TYPE_COLOR);
         for (String s : SYNTAX_BOOL) highLightWord(s, SYNTAX_BOOL_COLOR);
         for (String s : SYNTAX_KEYWORDS) highLightWord(s, SYNTAX_KEYWORDS_COLOR);
@@ -164,7 +167,15 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
         for (String s : SYNTAX_OPERATIONS) highLightWord(s,SYNTAX_OPERATIONS_COLOR);
         for (String s : SYNTAX_SELF) highLightWord(s, SYNTAX_SELF_COLOR);
         for (String s : SYNTAX_FUNCTIONS) highLightWord(s,SYNTAX_FUNCTIONS_COLOR);
-//        highLightWord("\"[^\"]*?\"", SYNTAX_STRING_COLOR);
+
+        Pattern p = Pattern.compile("\\#.*?$");
+        Matcher m = p.matcher(textPane.getText());
+        while(m.find()){
+            int start = m.start();
+            int end = m.end();
+            StyleConstants.setForeground(highlighter, SYNTAX_COMMENT_COLOR);
+            textPane.getStyledDocument().setCharacterAttributes(start, end-start, highlighter, true);
+        }
 
         Pattern pattern = Pattern.compile("\"[^\"]*?(\"|\\z)");
         Matcher matcher = pattern.matcher(textPane.getText());
@@ -173,8 +184,8 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
             int end = matcher.end();
             StyleConstants.setForeground(highlighter, SYNTAX_STRING_COLOR);
             textPane.getStyledDocument().setCharacterAttributes(start, end-start, highlighter, true);
-            //textPane.getHighlighter().addHighlight(start, end, (Highlighter.HighlightPainter) highlighted);
         }
+
     }
 
 
