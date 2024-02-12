@@ -31,7 +31,10 @@
         <children>
           <component id="87ae0" class="javax.swing.JTextPane" binding="editorPane1">
             <constraints/>
-            <properties/>
+            <properties>
+              <background color="-12632257"/>
+              <foreground color="-14145496"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

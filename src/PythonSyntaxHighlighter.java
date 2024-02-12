@@ -83,15 +83,13 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
     public PythonSyntaxHighlighter(JTextPane textPane) {
 
         highlighter = textPane.addStyle("syntaxHighlighter", null);
-        clear = textPane.addStyle("syntaxClear", null);
-        StyleConstants.setForeground(clear, Color.BLACK);
 
         this.textPane = textPane;
         lastWordEndPos = 0;
         currentPos = 0;
         currentWord = "";
 
-        EDITOR_TEXT_COLOR = Color.BLACK;
+        EDITOR_TEXT_COLOR = Color.decode("#BCBEC4");
         SYNTAX_KEYWORDS_COLOR = Color.decode("#0079f2");
         SYNTAX_FUNCTIONS_COLOR = Color.decode("#c9c236");
         SYNTAX_OPERATIONS_COLOR = Color.decode("#9fc2e5");
@@ -102,6 +100,9 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
         SYNTAX_COMMENT_COLOR = Color.decode("#0c6324");
         SYNTAX_BOOL_COLOR = Color.decode("#9fc2e5");
         SYNTAX_STRING_COLOR = Color.decode("#dea670");
+
+        clear = textPane.addStyle("syntaxClear", null);
+        StyleConstants.setForeground(clear, EDITOR_TEXT_COLOR);
     }
 
     @Override

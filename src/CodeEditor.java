@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.DefaultStyledDocument;
+import java.awt.*;
 
 public class CodeEditor {
     private JTextPane editorPane1;
@@ -14,6 +15,6 @@ public class CodeEditor {
     public CodeEditor() {
         editorPane1.setDocument(new DefaultStyledDocument());
         ((AbstractDocument) editorPane1.getDocument()).setDocumentFilter(new PythonSyntaxHighlighter(editorPane1));
-
+        editorPane1.setFont(new Font("Consolas", Font.PLAIN, 16));
     }
 }
