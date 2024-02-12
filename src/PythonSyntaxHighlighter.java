@@ -138,8 +138,8 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
     }
 
 
-    public void highLightWord(String word, Color highlight) throws BadLocationException {
-        Pattern pattern = Pattern.compile("\\b"+word+"\\b");
+    public void highLightWord(String pat, Color highlight) throws BadLocationException {
+        Pattern pattern = Pattern.compile("\\b"+pat+"\\b");
         Matcher matcher = pattern.matcher(textPane.getText());
         while(matcher.find()){
             int start = matcher.start();
@@ -164,6 +164,17 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
         for (String s : SYNTAX_OPERATIONS) highLightWord(s,SYNTAX_OPERATIONS_COLOR);
         for (String s : SYNTAX_SELF) highLightWord(s, SYNTAX_SELF_COLOR);
         for (String s : SYNTAX_FUNCTIONS) highLightWord(s,SYNTAX_FUNCTIONS_COLOR);
+//        highLightWord("\"[^\"]*?\"", SYNTAX_STRING_COLOR);
+
+        Pattern pattern = Pattern.compile("\"[^\"]*?(\"|\\z)");
+        Matcher matcher = pattern.matcher(textPane.getText());
+        while(matcher.find()){
+            int start = matcher.start();
+            int end = matcher.end();
+            StyleConstants.setForeground(highlighter, SYNTAX_STRING_COLOR);
+            textPane.getStyledDocument().setCharacterAttributes(start, end-start, highlighter, true);
+            //textPane.getHighlighter().addHighlight(start, end, (Highlighter.HighlightPainter) highlighted);
+        }
     }
 
 
