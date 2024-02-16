@@ -1,20 +1,16 @@
-import jdk.jshell.execution.Util;
-
 import javax.swing.*;
 import javax.swing.text.*;
-import javax.swing.text.DefaultHighlighter.*;
 import java.awt.*;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PythonSyntaxHighlighter extends DocumentFilter {
 
-    private JTextPane textPane;
+    private final JTextPane textPane;
 
-    private String currentWord;
-    private int lastWordEndPos;
-    private int currentPos;
+    private final String currentWord;
+    private final int lastWordEndPos;
+    private final int currentPos;
 
 
     String[] SYNTAX_TYPES = {"int", "str", "list", "set", "dict", "tuple", "bool", "float", "bytes",
@@ -73,33 +69,31 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
 
     String[] SYNTAX_STRINGS = {"\"", "'"};
 
-    private Style highlighter;
-    private Style clear;
+    private final Style highlighter;
+    private final Style clear;
+    private final CodeEditor editorParent;
 
+    private final Color SYNTAX_TYPE_COLOR = Color.decode("#845692");
+    private final Color SYNTAX_KEYWORDS_COLOR = Color.decode("#0079f2");
+    private final Color SYNTAX_FUNCTIONS_COLOR = Color.decode("#c9c236");
+    private final Color SYNTAX_OPERATIONS_COLOR = Color.decode("#9fc2e5");
+    private final Color SYNTAX_COMMENT_COLOR = Color.decode("#0c6324");
+    private final Color SYNTAX_BOOL_COLOR = Color.decode("#9fc2e5");
+    private final Color SYNTAX_CLASS_COLOR = Color.decode("#ff3154");
+    private final Color SYNTAX_SELF_COLOR = Color.decode("#ff004c");
+    private final Color SYNTAX_STRING_COLOR = Color.decode("#dea670");
+    private final Color SYNTAX_ERROR_COLOR = Color.decode("#ff004c");
+    private final Color EDITOR_TEXT_COLOR = Color.decode("#BCBEC4");
 
-    private Color SYNTAX_TYPE_COLOR, SYNTAX_KEYWORDS_COLOR, SYNTAX_FUNCTIONS_COLOR, SYNTAX_OPERATIONS_COLOR,SYNTAX_COMMENT_COLOR,
-            SYNTAX_BOOL_COLOR, SYNTAX_CLASS_COLOR, SYNTAX_SELF_COLOR, SYNTAX_STRING_COLOR, SYNTAX_ERROR_COLOR, EDITOR_TEXT_COLOR;
+    public PythonSyntaxHighlighter(CodeEditor parent, JTextPane textPane) {
 
-    public PythonSyntaxHighlighter(JTextPane textPane) {
-
+        editorParent = parent;
         highlighter = textPane.addStyle("syntaxHighlighter", null);
 
         this.textPane = textPane;
         lastWordEndPos = 0;
         currentPos = 0;
         currentWord = "";
-
-        EDITOR_TEXT_COLOR = Color.decode("#BCBEC4");
-        SYNTAX_KEYWORDS_COLOR = Color.decode("#0079f2");
-        SYNTAX_FUNCTIONS_COLOR = Color.decode("#c9c236");
-        SYNTAX_OPERATIONS_COLOR = Color.decode("#9fc2e5");
-        SYNTAX_CLASS_COLOR = Color.decode("#ff3154");
-        SYNTAX_SELF_COLOR = Color.decode("#ff004c");
-        SYNTAX_ERROR_COLOR = Color.decode("#4437a6");
-        SYNTAX_TYPE_COLOR = Color.decode("#845692");
-        SYNTAX_COMMENT_COLOR = Color.decode("#0c6324");
-        SYNTAX_BOOL_COLOR = Color.decode("#9fc2e5");
-        SYNTAX_STRING_COLOR = Color.decode("#dea670");
 
         clear = textPane.addStyle("syntaxClear", null);
         StyleConstants.setForeground(clear, EDITOR_TEXT_COLOR);
@@ -118,7 +112,6 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
     }
 
     public static void setTabs(int charactersPerTab, JTextPane textpane) {
-
         charactersPerTab--;
 
         FontMetrics fm = textpane.getFontMetrics(textpane.getFont());
@@ -138,61 +131,47 @@ public class PythonSyntaxHighlighter extends DocumentFilter {
         int length = textpane.getDocument().getLength();
         textpane.getStyledDocument().setParagraphAttributes(0, length,
                 attributes, false);
-
     }
 
 
-    public void highLightWord(String pat, Color highlight) throws BadLocationException {
-        Pattern pattern = Pattern.compile("\\b"+pat+"\\b");
-        Matcher matcher = pattern.matcher(textPane.getText());
+    public void highlightPattern(String pat, Color highlight) throws BadLocationException {
+        Pattern pattern = Pattern.compile(pat);
+        Document doc = textPane.getDocument();
+        Matcher matcher = pattern.matcher(doc.getText(0,doc.getLength()));
         while(matcher.find()){
             int start = matcher.start();
             int end = matcher.end();
             StyleConstants.setForeground(highlighter, highlight);
             textPane.getStyledDocument().setCharacterAttributes(start, (end-start), highlighter, true);
         }
-
     }
 
     public void syntaxHighlight() throws BadLocationException {
+        long sTime = System.currentTimeMillis();
         MutableAttributeSet mas = textPane.getInputAttributes();
         mas.removeAttributes(mas);
         textPane.removeStyle("syntaxHighlighter");
         textPane.getStyledDocument().setCharacterAttributes(0, textPane.getText().length(), clear, true);
-        for (String s : SYNTAX_TYPES) highLightWord(s, SYNTAX_TYPE_COLOR);
-        for (String s : SYNTAX_BOOL) highLightWord(s, SYNTAX_BOOL_COLOR);
-        for (String s : SYNTAX_KEYWORDS) highLightWord(s, SYNTAX_KEYWORDS_COLOR);
-        for (String s : SYNTAX_CLASS) highLightWord(s, SYNTAX_CLASS_COLOR);
-        for (String s : SYNTAX_COMMENT) highLightWord(s, SYNTAX_COMMENT_COLOR);
-        for (String s : SYNTAX_EXCEPTIONS) highLightWord(s, SYNTAX_ERROR_COLOR);
-        for (String s : SYNTAX_OPERATIONS) highLightWord(s,SYNTAX_OPERATIONS_COLOR);
-        for (String s : SYNTAX_SELF) highLightWord(s, SYNTAX_SELF_COLOR);
-        for (String s : SYNTAX_FUNCTIONS) highLightWord(s,SYNTAX_FUNCTIONS_COLOR);
 
-        Pattern p = Pattern.compile("\\#.*?$");
-        Matcher m = p.matcher(textPane.getText());
-        while(m.find()){
-            int start = m.start();
-            int end = m.end();
-            StyleConstants.setForeground(highlighter, SYNTAX_COMMENT_COLOR);
-            textPane.getStyledDocument().setCharacterAttributes(start, end-start, highlighter, true);
-        }
+        for (String s : SYNTAX_TYPES) highlightPattern("\\b"+s+"\\b", SYNTAX_TYPE_COLOR);
+        for (String s : SYNTAX_BOOL) highlightPattern("\\b"+s+"\\b", SYNTAX_BOOL_COLOR);
+        for (String s : SYNTAX_KEYWORDS) highlightPattern("\\b"+s+"\\b", SYNTAX_KEYWORDS_COLOR);
+        for (String s : SYNTAX_CLASS) highlightPattern("\\b"+s+"\\b", SYNTAX_CLASS_COLOR);
+        for (String s : SYNTAX_COMMENT) highlightPattern("\\b"+s+"\\b", SYNTAX_COMMENT_COLOR);
+        for (String s : SYNTAX_EXCEPTIONS) highlightPattern("\\b"+s+"\\b", SYNTAX_ERROR_COLOR);
+        for (String s : SYNTAX_OPERATIONS) highlightPattern(s,SYNTAX_OPERATIONS_COLOR);
+        for (String s : SYNTAX_SELF) highlightPattern("\\b"+s+"\\b", SYNTAX_SELF_COLOR);
+        for (String s : SYNTAX_FUNCTIONS) highlightPattern("\\b"+s+"\\b",SYNTAX_FUNCTIONS_COLOR);
 
-        Pattern pattern = Pattern.compile("\"[^\"]*?(\"|\\z)");
-        Matcher matcher = pattern.matcher(textPane.getText());
-        while(matcher.find()){
-            int start = matcher.start();
-            int end = matcher.end();
-            StyleConstants.setForeground(highlighter, SYNTAX_STRING_COLOR);
-            textPane.getStyledDocument().setCharacterAttributes(start, end-start, highlighter, true);
-        }
+        highlightPattern("\\#.*?$", SYNTAX_COMMENT_COLOR);
+        highlightPattern("\"[^\"]*?(\"|\\z)", SYNTAX_STRING_COLOR);
 
+        long eTime = System.currentTimeMillis();
+        editorParent.TESTING_updatePrefMon("Last Update: "+(eTime-sTime)+"ms");
     }
-
 
     @Override
     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-
         super.replace(fb,offset,length,text,attrs);
         syntaxHighlight();
         setTabs(3,textPane);

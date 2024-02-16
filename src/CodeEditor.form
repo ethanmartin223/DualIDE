@@ -38,6 +38,12 @@
           </component>
         </children>
       </scrollpane>
+      <component id="1ebec" class="javax.swing.JLabel" binding="prefMonLabel">
+        <constraints border-constraint="South"/>
+        <properties>
+          <text value="Label"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
